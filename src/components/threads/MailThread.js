@@ -27,6 +27,7 @@ const DropdownIndicator = (
   );
 };
 
+
 const myRef = React.createRef();
 
 const MailThread = () => {
@@ -68,6 +69,22 @@ const MailThread = () => {
     ckdata: "",
     isSent: false,
   });
+
+  const selectAll = () => {
+    setReciever([...[...reciever].map((el) => ({ ...el, isSelected: true }))]);
+    setCustomers([
+      ...[...customers].map((el) => ({ ...el, isSelected: true })),
+    ]);
+  }
+
+  const MenuList = (props) => {
+    return (
+      <components.MenuList {...props}>
+        <button style={{border: 'none', backgroundColor: 'white', fontWeight: 600}} onClick={selectAll}>Select All</button>
+        {props.children}
+      </components.MenuList>
+    );
+  };
 
   useEffect(() => {
     getEmailThread();
@@ -287,14 +304,14 @@ const MailThread = () => {
                 name="selectorTo"
                 isClearable={false}
                 closeMenuOnSelect={false}
-                components={{ DropdownIndicator }}
+                components={{ DropdownIndicator, MenuList }}
                 onSelect={(event) => console.log(event.value)}
                 onChange={(data) => handleOptionEvent(data)}
                 styles={{
                   option: (baseStyles, state) => ({
                     ...baseStyles,
                     backgroundColor: "#ced4da",
-                    margin: '4px',
+                    margin: "4px",
                     color: "black",
                     paddingLeft: "20px",
                   }),
