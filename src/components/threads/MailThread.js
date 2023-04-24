@@ -15,12 +15,6 @@ import Swal from "sweetalert2";
 import "./thread.css";
 import Chat from "./chat.png";
 
-const groupStyles = {
-  border: `2px solid black`,
-  borderRadius: "5px",
-  background: "#f2fcff",
-};
-
 const DropdownIndicator = (
   props: DropdownIndicatorProps<ColourOption, true>
 ) => {
@@ -147,64 +141,61 @@ const MailThread = () => {
   };
 
   const tryToSendEmail = () => {
-    // if(state.template && state.date){
-    //   Swal.fire({
-    //     title: "Notice",
-    //     text: "Do you want to send email",
-    //     icon: "info",
-    //     confirmButtonText: "Yes",
-    //   });
-
-    // }
-    Swal.fire({
-      title: "Notice",
-      text: "Do you want to send email",
-      icon: "info",
-      showCancelButton: true,
-      cancenButtonText: "No",
-      confirmButtonText: "Yes",
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        if (state.id)
+    if (state.template.trim() && state.date && state.to.length) {
+      Swal.fire({
+        title: "Notice",
+        text: "Do you want to send email",
+        icon: "info",
+        showCancelButton: true,
+        cancenButtonText: "No",
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          if (state.id)
+            dispatch({
+              type: UPDATE_TEMPLATE,
+              payload: {
+                ...state,
+                isSent: true,
+                to: reciever.filter((el) => el.isSelected),
+              },
+            });
+          else
+            dispatch({
+              type: ADD_TEMPLATE,
+              payload: {
+                ...state,
+                id: _uniqueId(),
+                isSent: true,
+                to: reciever.filter((el) => el.isSelected),
+              },
+            });
+          Swal.fire("Saved!", "", "success");
+          history.push("/");
+        } else {
           dispatch({
-            type: UPDATE_TEMPLATE,
+            type: ADD_TEMPLATE,
             payload: {
               ...state,
-              isSent: true,
+              id: _uniqueId(),
+              isSent: false,
               to: reciever.filter((el) => el.isSelected),
             },
           });
-        else
-          dispatch({
-            type: ADD_TEMPLATE,
-            payload: { ...state, id: _uniqueId(), isSent: true, to: reciever.filter(el => el.isSelected) },
-          });
-        Swal.fire("Saved!", "", "success");
-        history.push("/");
-      } else {
-        dispatch({
-          type: ADD_TEMPLATE,
-          payload: {
-            ...state,
-            id: _uniqueId(),
-            isSent: false,
-            to: reciever.filter((el) => el.isSelected),
-          },
-        });
-        Swal.fire("Canceled: Saved as draft", "", "info");
-        history.push("/");
-      }
-    });
-    console.log({ ...state, id: _uniqueId() });
-
+          Swal.fire("Canceled: Saved as draft", "", "info");
+          history.push("/");
+        }
+      });
+      console.log({ ...state, id: _uniqueId() });
+    }
   };
 
   const getEmailThread = () => {
     if (id) {
       let row = rows.find((el) => el.id == id);
       setState(row);
-      setReciever(row.to)
+      setReciever(row.to);
     } else {
     }
   };
@@ -321,20 +312,6 @@ const MailThread = () => {
                 options={groupedOptions}
               />
             </FormGroup>
-            {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
-              <Select defaultValue="" id="grouped-select" label="Grouping">
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <ListSubheader>Category 1</ListSubheader>
-                <MenuItem value={1}>Option 1</MenuItem>
-                <MenuItem value={2}>Option 2</MenuItem>
-                <ListSubheader>Category 2</ListSubheader>
-                <MenuItem value={3}>Option 3</MenuItem>
-                <MenuItem value={4}>Option 4</MenuItem>
-              </Select>
-            </FormControl> */}
           </Row>
           <Row xs="2">
             <FormGroup>

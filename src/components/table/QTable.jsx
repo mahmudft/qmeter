@@ -64,6 +64,10 @@ const QTable = () => {
     else return entries;
   };
 
+  const transformDate = (locale) => {
+    return new Date(locale).toDateString();
+  }
+
   return (
     <div className="qtable-area">
       <div>
@@ -121,7 +125,7 @@ const QTable = () => {
                   {row.name}
                 </TableCell>
                 <TableCell align="right">Email</TableCell>
-                <TableCell align="right">{row.date}</TableCell>
+                <TableCell align="right">{transformDate(row.date)}</TableCell>
                 <TableCell align="right">
                   <Button
                     size="small"

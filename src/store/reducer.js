@@ -11,6 +11,7 @@ const initialState = {
       customer: "Customerh",
       date: "2023-04-12",
       ckdata: "<p>fghghfhg</p>",
+      to: [],
       isSent: false,
     },
     {
@@ -21,9 +22,10 @@ const initialState = {
       from: "Qmeter or 2345",
       customer: "Customerh",
       date: "2023-04-13",
+      to: [],
       ckdata: "<p>fghghfhg</p>",
       isSent: true,
-    }
+    },
   ],
 };
 

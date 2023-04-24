@@ -55,8 +55,9 @@ label {
 
 .editor-upper-menu{
   display: flex;
+  margin: 10px 0px;
   flex-direction: row;
-  justify-items: baseline;
+  justify-items:baseline;
   gap: 4px
 }
 
