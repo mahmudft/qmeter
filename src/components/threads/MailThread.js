@@ -294,6 +294,7 @@ const MailThread = () => {
                   option: (baseStyles, state) => ({
                     ...baseStyles,
                     backgroundColor: "#ced4da",
+                    margin: '4px',
                     color: "black",
                     paddingLeft: "20px",
                   }),
