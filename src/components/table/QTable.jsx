@@ -64,6 +64,13 @@ const QTable = () => {
     else return entries;
   };
 
+  const handleSearch = (event) => {
+    let val = event.currentTarget.value;
+    setTimeout(() => {
+      setSearch(val);
+    }, 500);
+  }
+
   const transformDate = (locale) => {
     return new Date(locale).toDateString();
   }
@@ -81,7 +88,7 @@ const QTable = () => {
               </IconButton>
             </InputAdornment>
           }
-          onChange={(el) => setSearch(el.currentTarget.value)}
+          onChange={(el) => handleSearch(el)}
           placeholder="Search"
           size="small"
         />
