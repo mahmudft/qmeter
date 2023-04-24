@@ -1,6 +1,6 @@
 # Getting Started
 
-Qmeter frontnend 
+Qmeter frontend 
 
 ## Install dep
 
