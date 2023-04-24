@@ -1,0 +1,21 @@
+/* table {
+    margin: 2%;
+} */
+
+button > a {
+  all: unset;
+}
+.qtable-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  margin: 1%;
+  width: auto;
+  padding: 2%;
+}
+
+tr > th, td {
+    font-weight: 800;
+}
